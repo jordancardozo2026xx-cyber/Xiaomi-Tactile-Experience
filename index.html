@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accesibilidad Táctil Xiaomi</title>
+    <title>Simulador DPI Xiaomi (1200 DPI)</title>
     <style>
-        /* ESTILOS DIRECTOS EN EL HTML PARA SEGURIDAD */
         body {
             font-family: Arial, sans-serif;
             max-width: 1000px;
@@ -34,10 +33,54 @@
             border-bottom: 2px solid #f0f0f0;
             padding-bottom: 10px;
         }
-        ul {
-            list-style-type: square;
-            padding-left: 25px;
+        .simulator-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px dashed #ff6700;
+            border-radius: 8px;
+        }
+        .simulated-screen {
+            width: 300px;
+            height: 500px; 
+            margin: 20px auto;
+            background-color: #ffffff;
+            border: 3px solid #333;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.5s ease;
+        }
+        .screen-content {
+            font-size: 16px;
             color: #333;
+            transition: font-size 0.5s ease;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #ff6700;
+        }
+        input[type="range"] {
+            width: 80%;
+            max-width: 400px;
+        }
+        .values-display {
+            margin: 20px 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .power-info {
+            background-color: #fff3e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #e65100;
         }
         footer {
             text-align: center;
@@ -48,92 +91,102 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .switch-container {
-            text-align: center;
-            margin: 30px 0;
-        }
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        input:checked + .slider {
-            background-color: #ff6700;
-        }
-        input:focus + .slider {
-            box-shadow: 0 0 1px #ff6700;
-        }
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        }
-        .switch-label {
-            margin-left: 10px;
-            font-size: 18px;
-            color: #333;
-        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Accesibilidad Táctil en Dispositivos Xiaomi</h1>
+        <h1>Simulador DPI Xiaomi (1200 DPI de Potencia)</h1>
     </header>
 
     <main>
         <section>
-            <h2>¿Qué es la accesibilidad táctil?</h2>
-            <p>Se trata de funciones diseñadas para ayudar a personas con dificultades visuales o motoras a usar los dispositivos mediante vibraciones, gestos adaptados y retroalimentación táctil.</p>
+            <h2>¿Qué son el DPI y los valores X/Y?</h2>
+            <p><strong>DPI</strong>: Puntos por pulgada — define el tamaño de los elementos en pantalla.</p>
+            <p><strong>Valores X/Y</strong>: Definen la resolución visual (ancho x alto). Y siempre es más alto que X.</p>
+            
+            <div class="power-info">
+                <p>✅ AUMENTO TOTAL AL 1200 DPI: ~186% más grande que el DPI base (420)</p>
+                <p>✅ POTENCIA EQUIVALENTE A UN DISPOSITIVO CON 1200 DPI REAL</p>
+            </div>
         </section>
 
-        <section>
-            <h2>Funciones en Xiaomi</h2>
-            <ul>
-                <li>Vibración táctil personalizable</li>
-                <li>Gestos de pantalla táctil adaptados</li>
-                <li>Modo de alto contraste</li>
-            </ul>
-        </section>
+        <section class="simulator-section">
+            <h2>Simulador Visual</h2>
+            
+            <div class="values-display">
+                <p><strong>DPI actual:</strong> <span id="dpi-value">420</span></p>
+                <p><strong>Aumento %:</strong> <span id="percent-value">0%</span></p>
+                <p><strong>Valores X/Y:</strong> <span id="xy-value">360 x 640</span></p>
+            </div>
 
-        <section class="switch-container">
-            <h2>Activar Modo de Accesibilidad</h2>
-            <label class="switch">
-                <input type="checkbox">
-                <span class="slider"></span>
-            </label>
-            <span class="switch-label">Modo Táctil Activo</span>
+            <div class="controls">
+                <label for="dpi-slider">Ajustar DPI (420 - 1200):</label>
+                <input type="range" id="dpi-slider" min="420" max="1200" value="420">
+
+                <label for="xy-slider">Ajustar proporción (X aumenta, Y aumenta más):</label>
+                <input type="range" id="xy-slider" min="1" max="10" value="5">
+            </div>
+
+            <div class="simulated-screen" id="sim-screen">
+                <div class="screen-content" id="screen-content">
+                    <h3>PRUEBA DE PANTALLA</h3>
+                    <p>Texto de ejemplo</p>
+                    <p>Icono 🔲</p>
+                    <p>Botón 🟠</p>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>Proyecto de accesibilidad | 2026</p>
+        <p>Simulador de accesibilidad | 2026</p>
     </footer>
 
+    <script>
+        // Elementos del DOM
+        const dpiSlider = document.getElementById('dpi-slider');
+        const xySlider = document.getElementById('xy-slider');
+        const dpiValue = document.getElementById('dpi-value');
+        const percentValue = document.getElementById('percent-value');
+        const xyValue = document.getElementById('xy-value');
+        const simScreen = document.getElementById('sim-screen');
+        const screenContent = document.getElementById('screen-content');
+
+        // DPI base para cálculo del porcentaje
+        const baseDpi = 420;
+
+        // Función para actualizar el simulador
+        function updateSimulator() {
+            const dpi = dpiSlider.value;
+            const xyFactor = xySlider.value;
+            
+            // Calcular porcentaje de aumento
+            const percent = Math.round(((dpi - baseDpi) / baseDpi) * 100);
+            
+            // Valor X base, Y es más alto (x2 el factor)
+            const x = 300 + (xyFactor * 12);
+            const y = 450 + (xyFactor * 24); // Y es más alto que X
+            
+            // Actualizar textos
+            dpiValue.textContent = dpi;
+            percentValue.textContent = `${percent}%`;
+            xyValue.textContent = `${x} x ${y}`;
+            
+            // Ajustar tamaño de pantalla simulada
+            simScreen.style.width = `${x}px`;
+            simScreen.style.height = `${y}px`;
+            
+            // Ajustar tamaño del contenido con la misma potencia que 1200 DPI real
+            const fontSize = 16 + ((dpi - baseDpi) * 0.045); // Calculado para igualar 1200 DPI
+            screenContent.style.fontSize = `${fontSize}px`;
+        }
+
+        // Escuchar cambios en los controles
+        dpiSlider.addEventListener('input', updateSimulator);
+        xySlider.addEventListener('input', updateSimulator);
+
+        // Inicializar el simulador
+        updateSimulator();
+    </script>
 </body>
 </html>
