@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador DPI Xiaomi (1200 DPI)</title>
+    <title>Simulador DPI Xiaomi (1200 DPI de Potencia)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,10 +51,27 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             transition: all 0.5s ease;
         }
+        .simulated-screen.max-power {
+            border: 4px solid #ff6700;
+            box-shadow: 0 0 20px rgba(255,103,0,0.6);
+            background-color: #fff9f5;
+        }
         .screen-content {
             font-size: 16px;
             color: #333;
             transition: font-size 0.5s ease;
+        }
+        .icons-row {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .game-note {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 5px solid #2e7d32;
         }
         .controls {
             margin: 20px 0;
@@ -69,6 +86,19 @@
             width: 80%;
             max-width: 400px;
         }
+        #reset-btn {
+            background-color: #ff6700;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        #reset-btn:hover {
+            background-color: #e65100;
+        }
         .values-display {
             margin: 20px 0;
             font-size: 18px;
@@ -81,6 +111,12 @@
             margin: 20px 0;
             font-weight: bold;
             color: #e65100;
+        }
+        .max-power-alert {
+            color: #ff6700;
+            font-weight: bold;
+            font-size: 20px;
+            display: none;
         }
         footer {
             text-align: center;
@@ -108,6 +144,11 @@
                 <p>✅ AUMENTO TOTAL AL 1200 DPI: ~186% más grande que el DPI base (420)</p>
                 <p>✅ POTENCIA EQUIVALENTE A UN DISPOSITIVO CON 1200 DPI REAL</p>
             </div>
+
+            <div class="game-note">
+                <p><strong>💡 ¿CÓMO AFECTA EL DPI ALTO EN JUEGOS?</strong></p>
+                <p>Un DPI de 1200 mejora la precisión táctil en juegos como Free Fire — los toques se detectan con más exactitud y los movimientos de pantalla son más fluidos.</p>
+            </div>
         </section>
 
         <section class="simulator-section">
@@ -116,7 +157,8 @@
             <div class="values-display">
                 <p><strong>DPI actual:</strong> <span id="dpi-value">420</span></p>
                 <p><strong>Aumento %:</strong> <span id="percent-value">0%</span></p>
-                <p><strong>Valores X/Y:</strong> <span id="xy-value">360 x 640</span></p>
+                <p><strong>Valores X/Y:</strong> <span id="xy-value">360 x 570</span></p>
+                <p class="max-power-alert" id="max-alert">⚡ POTENCIA MÁXIMA ALCANZADA (1200 DPI) ⚡</p>
             </div>
 
             <div class="controls">
@@ -125,13 +167,19 @@
 
                 <label for="xy-slider">Ajustar proporción (X aumenta, Y aumenta más):</label>
                 <input type="range" id="xy-slider" min="1" max="10" value="5">
+
+                <button id="reset-btn">Resetear Ajustes</button>
             </div>
 
             <div class="simulated-screen" id="sim-screen">
                 <div class="screen-content" id="screen-content">
                     <h3>PRUEBA DE PANTALLA</h3>
                     <p>Texto de ejemplo</p>
-                    <p>Icono 🔲</p>
+                    <div class="icons-row">
+                        <span>🔲 Icono 1</span>
+                        <span>🔘 Icono 2</span>
+                        <span>🟢 Icono 3</span>
+                    </div>
                     <p>Botón 🟠</p>
                 </div>
             </div>
@@ -146,14 +194,17 @@
         // Elementos del DOM
         const dpiSlider = document.getElementById('dpi-slider');
         const xySlider = document.getElementById('xy-slider');
+        const resetBtn = document.getElementById('reset-btn');
         const dpiValue = document.getElementById('dpi-value');
         const percentValue = document.getElementById('percent-value');
         const xyValue = document.getElementById('xy-value');
         const simScreen = document.getElementById('sim-screen');
         const screenContent = document.getElementById('screen-content');
+        const maxAlert = document.getElementById('max-alert');
 
         // DPI base para cálculo del porcentaje
         const baseDpi = 420;
+        const maxDpi = 1200;
 
         // Función para actualizar el simulador
         function updateSimulator() {
@@ -177,13 +228,30 @@
             simScreen.style.height = `${y}px`;
             
             // Ajustar tamaño del contenido con la misma potencia que 1200 DPI real
-            const fontSize = 16 + ((dpi - baseDpi) * 0.045); // Calculado para igualar 1200 DPI
+            const fontSize = 16 + ((dpi - baseDpi) * 0.045);
             screenContent.style.fontSize = `${fontSize}px`;
+
+            // Efecto de potencia máxima
+            if (dpi == maxDpi) {
+                simScreen.classList.add('max-power');
+                maxAlert.style.display = 'block';
+            } else {
+                simScreen.classList.remove('max-power');
+                maxAlert.style.display = 'none';
+            }
+        }
+
+        // Función para resetear ajustes
+        function resetSettings() {
+            dpiSlider.value = baseDpi;
+            xySlider.value = 5;
+            updateSimulator();
         }
 
         // Escuchar cambios en los controles
         dpiSlider.addEventListener('input', updateSimulator);
         xySlider.addEventListener('input', updateSimulator);
+        resetBtn.addEventListener('click', resetSettings);
 
         // Inicializar el simulador
         updateSimulator();
