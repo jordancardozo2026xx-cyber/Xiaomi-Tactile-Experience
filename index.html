@@ -1,8 +1,139 @@
-<section class="switch-container">
-    <h2>Activar Modo de Accesibilidad</h2>
-    <label class="switch">
-        <input type="checkbox">
-        <span class="slider"></span>
-    </label>
-    <span class="switch-label">Modo Táctil Activo</span>
-</section>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesibilidad Táctil Xiaomi</title>
+    <style>
+        /* ESTILOS DIRECTOS EN EL HTML PARA SEGURIDAD */
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #ff6700;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        main {
+            background-color: white;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #ff6700;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        ul {
+            list-style-type: square;
+            padding-left: 25px;
+            color: #333;
+        }
+        footer {
+            text-align: center;
+            color: #666;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .switch-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #ff6700;
+        }
+        input:focus + .slider {
+            box-shadow: 0 0 1px #ff6700;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .switch-label {
+            margin-left: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Accesibilidad Táctil en Dispositivos Xiaomi</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>¿Qué es la accesibilidad táctil?</h2>
+            <p>Se trata de funciones diseñadas para ayudar a personas con dificultades visuales o motoras a usar los dispositivos mediante vibraciones, gestos adaptados y retroalimentación táctil.</p>
+        </section>
+
+        <section>
+            <h2>Funciones en Xiaomi</h2>
+            <ul>
+                <li>Vibración táctil personalizable</li>
+                <li>Gestos de pantalla táctil adaptados</li>
+                <li>Modo de alto contraste</li>
+            </ul>
+        </section>
+
+        <section class="switch-container">
+            <h2>Activar Modo de Accesibilidad</h2>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+            <span class="switch-label">Modo Táctil Activo</span>
+        </section>
+    </main>
+
+    <footer>
+        <p>Proyecto de accesibilidad | 2026</p>
+    </footer>
+
+</body>
+</html>
